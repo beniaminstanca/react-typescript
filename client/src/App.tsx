@@ -11,7 +11,7 @@ import TaskDetailPage, {
 import NewTaskPage from "./pages/NewTask";
 import EditTaskPage from "./pages/EditTask";
 import TasksRootLayout from "./pages/TasksRoot";
-import { action as manipulateTaskAction } from "./components/events/TaskForm";
+import { action as manipulateTaskAction } from "./components/tasks/TaskForm";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";

@@ -1,4 +1,4 @@
-import TaskForm from "../components/events/TaskForm";
+import TaskForm from "../components/tasks/TaskForm";
 
 function NewTaskPage() {
   return <TaskForm method={"POST"} task="" />;

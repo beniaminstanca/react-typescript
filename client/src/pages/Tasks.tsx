@@ -1,9 +1,11 @@
 import { useLoaderData, json } from "react-router-dom";
-import TasksList from "../components/events/TasksList";
+import TasksList from "../components/tasks/TasksList";
+import {Task, TasksData} from '../models/types';
 
 function TasksPage() {
-  const data = useLoaderData() as any;
-  const tasks = data.tasks;
+  const {tasks} = useLoaderData() as TasksData;
+  // console.log(data)
+  // const tasks = data.tasks;
   return <TasksList tasks={tasks} />;
 }
 

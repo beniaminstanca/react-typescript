@@ -1,13 +1,15 @@
 import { useRouteLoaderData, json, redirect } from "react-router-dom";
-import TaskItem from "../components/events/TaskItem";
+import TaskItem from "../components/tasks/TaskItem";
 import { getAuthToken } from "../util/auth";
+import { TaskDetail} from '../models/types';
+
 
 function TaskDetailPage() {
-  const data: any = useRouteLoaderData('task-detail');
+  const {task} = useRouteLoaderData('task-detail') as TaskDetail;
 
   return (
     <>
-      <TaskItem task={data.task} />
+      <TaskItem task={task} />
     </>
   );
 }
@@ -15,7 +17,7 @@ function TaskDetailPage() {
 export default TaskDetailPage;
 
 type MyParams = {
-  eventId : any;
+  eventId : string;
 }
 
 export async function loader({ request, params}:{request:Request, params: MyParams}) {
@@ -25,7 +27,6 @@ export async function loader({ request, params}:{request:Request, params: MyPara
   );
 
   if (!response.ok) {
-    // throw new Response(JSON.stringify({message: 'Could not fetch events'}),{status: 500})
     throw json({ message: "Could not fetch details for selected task" }, { status: 500 });
   } else {
     return response;
