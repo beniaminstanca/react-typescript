@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import classes from "./EventsList.module.css";
+import classes from "./TasksList.module.css";
 import { useMemo, useState } from "react";
 import { GoTriangleDown, GoTriangleUp, GoTriangleRight } from "react-icons/go";
 
-const EventsList: React.FC<{ events: any[] }> = ({ events }) => {
-  const [items] = useState(events);
+const TasksList: React.FC<{ tasks: any[] }> = ({ tasks }) => {
+  const [items] = useState(tasks);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("");
 
@@ -64,4 +64,4 @@ const EventsList: React.FC<{ events: any[] }> = ({ events }) => {
   );
 };
 
-export default EventsList;
+export default TasksList;

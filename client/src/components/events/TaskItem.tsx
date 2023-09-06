@@ -1,7 +1,7 @@
 import { Link, useRouteLoaderData, useSubmit } from "react-router-dom";
-import classes from "./EventItem.module.css";
+import classes from "./TaskItem.module.css";
 
-const EventItem: React.FC<{ event: any }> = ({ event }) => {
+const TaskItem: React.FC<{ task: any }> = ({ task }) => {
   const token = useRouteLoaderData("root") as any;
   const submit = useSubmit();
 
@@ -15,9 +15,9 @@ const EventItem: React.FC<{ event: any }> = ({ event }) => {
 
   return (
     <article className={classes.event}>
-      <h1>{event.title}</h1>
-      <time>{event.date}</time>
-      <p>{event.description}</p>
+      <h1>{task.title}</h1>
+      <time>{task.date}</time>
+      <p>{task.description}</p>
       {token && (
         <menu className={classes.actions}>
           <Link to="edit">Edit</Link>
@@ -28,4 +28,4 @@ const EventItem: React.FC<{ event: any }> = ({ event }) => {
   );
 };
 
-export default EventItem;
+export default TaskItem;

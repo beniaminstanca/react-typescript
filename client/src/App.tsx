@@ -3,15 +3,15 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootLayout from "./pages/Root";
 import ErrorPage from "./pages/Error";
 import HomePage from "./pages/Home";
-import EventsPage, { loader as eventsLoader } from "./pages/Events";
-import EventDetailPage, {
-  loader as eventDetailLoader,
-  action as deleteEventAction,
-} from "./pages/EventDetail";
-import NewEventPage from "./pages/NewEvent";
-import EditEventPage from "./pages/EditEvent";
-import EventsRootLayout from "./pages/EventsRoot";
-import { action as manipulateEventAction } from "./components/events/EventForm";
+import TasksPage, { loader as tasksLoader } from "./pages/Tasks";
+import TaskDetailPage, {
+  loader as taskDetailLoader,
+  action as deleteTaskAction,
+} from "./pages/TaskDetail";
+import NewTaskPage from "./pages/NewTask";
+import EditTaskPage from "./pages/EditTask";
+import TasksRootLayout from "./pages/TasksRoot";
+import { action as manipulateTaskAction } from "./components/events/TaskForm";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
@@ -29,36 +29,36 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       {
-        path: "events",
-        element: <EventsRootLayout />,
+        path: "tasks",
+        element: <TasksRootLayout />,
         children: [
           {
             index: true,
-            element: <EventsPage />,
-            loader: eventsLoader,
+            element: <TasksPage />,
+            loader: tasksLoader,
           },
           {
             path: ":eventId",
-            id: "event-detail",
-            loader: eventDetailLoader as any,
+            id: "task-detail",
+            loader: taskDetailLoader as any,
             children: [
               {
                 index: true,
-                element: <EventDetailPage />,
-                action: deleteEventAction,
+                element: <TaskDetailPage />,
+                action: deleteTaskAction,
               },
               {
                 path: "edit",
-                element: <EditEventPage />,
-                action: manipulateEventAction,
+                element: <EditTaskPage />,
+                action: manipulateTaskAction,
                 loader: ckeckAuthLoader
               },
             ],
           },
           {
             path: "new",
-            element: <NewEventPage />,
-            action: manipulateEventAction,
+            element: <NewTaskPage />,
+            action: manipulateTaskAction,
             loader: ckeckAuthLoader
           },
         ],

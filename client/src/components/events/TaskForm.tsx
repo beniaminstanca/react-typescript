@@ -7,12 +7,12 @@ import {
   redirect,
 } from "react-router-dom";
 
-import classes from "./EventForm.module.css";
+import classes from "./TaskForm.module.css";
 import { getAuthToken } from "../../util/auth";
 
-const EventForm: React.FC<{ method: any; event: any }> = ({
+const TaskForm: React.FC<{ method: any; task: any }> = ({
   method,
-  event,
+  task,
 }) => {
   const data: any = useActionData();
   const navigate = useNavigate();
@@ -39,19 +39,9 @@ const EventForm: React.FC<{ method: any; event: any }> = ({
           type="text"
           name="title"
           required
-          defaultValue={event ? event.title : ""}
+          defaultValue={task ? task.title : ""}
         />
       </p>
-      {/* <p>
-        <label htmlFor="image">Image</label>
-        <input
-          id="image"
-          type="url"
-          name="image"
-          required
-          defaultValue={event ? event.image : ""}
-        />
-      </p> */}
       <p>
         <label htmlFor="date">Date</label>
         <input
@@ -59,7 +49,7 @@ const EventForm: React.FC<{ method: any; event: any }> = ({
           type="date"
           name="date"
           required
-          defaultValue={event ? event.date : ""}
+          defaultValue={task ? task.date : ""}
         />
       </p>
       <p>
@@ -69,7 +59,7 @@ const EventForm: React.FC<{ method: any; event: any }> = ({
           name="description"
           rows={3}
           required
-          defaultValue={event ? event.description : ""}
+          defaultValue={task ? task.description : ""}
         />
       </p>
       <div className={classes.actions}>
@@ -84,7 +74,7 @@ const EventForm: React.FC<{ method: any; event: any }> = ({
   );
 };
 
-export default EventForm;
+export default TaskForm;
 
 //   type MyParams = {
 //     eventId : any;
@@ -100,15 +90,15 @@ export async function action({
   const method = request.method;
   const data = await request.formData();
   const token = getAuthToken();
-  const eventData = {
+  const taskData = {
     title: data.get("title"),
     date: data.get("date"),
     description: data.get("description"),
   };
 
-  let url = "http://localhost:8080/events/";
+  let url = "http://localhost:8080/tasks/";
   if (method === "PATCH") {
-    url = "http://localhost:8080/events/" + params.eventId;
+    url = "http://localhost:8080/tasks/" + params.eventId;
   }
 
   const response = await fetch(url, {
@@ -117,7 +107,7 @@ export async function action({
       "Content-Type": "application/json",
       'Authorization' : 'Bearer ' + token
     },
-    body: JSON.stringify(eventData),
+    body: JSON.stringify(taskData),
   });
 
   if (response.status === 422) {
@@ -128,5 +118,5 @@ export async function action({
     throw json({ message: "Could not save data in database" }, { status: 500 });
   }
 
-  return redirect("/events");
+  return redirect("/tasks");
 }

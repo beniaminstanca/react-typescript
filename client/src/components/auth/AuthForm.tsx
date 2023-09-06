@@ -1,7 +1,6 @@
 import { Form, Link, useSearchParams, useActionData } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
-import { clearScreenDown } from "readline";
 
 function AuthForm() {
   const data: any = useActionData();
@@ -36,10 +35,10 @@ function AuthForm() {
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email" required />
         </p>
-        <p>
+        {/* <p>
           <label htmlFor="image">Password</label>
           <input id="password" type="password" name="password" required />
-        </p>
+        </p> */}
         <div className={classes.actions}>
           <Link to={`?mode=${isLogin ? "signup" : "login"}`}>
             <button>{isLogin ? "Register now" : "Login"}</button>

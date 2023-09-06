@@ -5,7 +5,6 @@ import { useEffect } from "react";
 function RootPage() {
   const token = useLoaderData();
   const submit = useSubmit();
-  //   const navigation = useNavigation();
 
   useEffect(() => {
     if (!token) {
@@ -20,7 +19,6 @@ function RootPage() {
     <>
       <MainNavigation />
       <main>
-        {/* {navigation.state === "loading" && <p>Loading...</p>} */}
         <Outlet />
       </main>
     </>

@@ -1,7 +1,7 @@
 import { NavLink, useRouteLoaderData } from "react-router-dom";
-import classes from "./EventsNavigation.module.css";
+import classes from "./TasksNavigation.module.css";
 
-function EventsNavigation() {
+function TasksNavigation() {
   const token = useRouteLoaderData('root') as any;
   return (
     <header className={classes.header}>
@@ -34,4 +34,4 @@ function EventsNavigation() {
   );
 }
 
-export default EventsNavigation;
+export default TasksNavigation;

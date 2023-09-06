@@ -23,12 +23,10 @@ export async function action({ request }: { request: Request }) {
       email: data.get("email"),
       fname: data.get("fname"),
       lname: data.get("lname"),
-      password: data.get("password"),
     };
   } else {
     authData = {
       email: data.get("email"),
-      password: data.get("password"),
     };
   }
 
@@ -40,6 +38,7 @@ export async function action({ request }: { request: Request }) {
     body: JSON.stringify(authData),
   });
 
+  console.log("aici", response);
   if (response.status === 422 || response.status === 401) {
     return response;
   }
@@ -52,5 +51,5 @@ export async function action({ request }: { request: Request }) {
 
   localStorage.setItem("token", token);
 
-  return redirect("/events");
+  return redirect("/tasks");
 }
