@@ -1,0 +1,31 @@
+import { Link, useRouteLoaderData, useSubmit } from "react-router-dom";
+import classes from "./EventItem.module.css";
+
+const EventItem: React.FC<{ event: any }> = ({ event }) => {
+  const token = useRouteLoaderData("root") as any;
+  const submit = useSubmit();
+
+  function startDeleteHandler() {
+    const proceed = window.confirm("Are you sure?");
+
+    if (proceed) {
+      submit(null, { method: "DELETE" });
+    }
+  }
+
+  return (
+    <article className={classes.event}>
+      <h1>{event.title}</h1>
+      <time>{event.date}</time>
+      <p>{event.description}</p>
+      {token && (
+        <menu className={classes.actions}>
+          <Link to="edit">Edit</Link>
+          <button onClick={startDeleteHandler}>Delete</button>
+        </menu>
+      )}
+    </article>
+  );
+};
+
+export default EventItem;

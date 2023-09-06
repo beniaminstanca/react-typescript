@@ -1,16 +1,57 @@
-import { Link } from 'react-router-dom';
-import classes from './EventsList.module.css';
+import { Link } from "react-router-dom";
+import classes from "./EventsList.module.css";
+import { useMemo, useState } from "react";
+import { GoTriangleDown, GoTriangleUp, GoTriangleRight } from "react-icons/go";
 
-//const TodoItem: React.FC<{text: string}>  = (props) =>{
-const EventsList:React.FC<{events: any[]}> =({ events }) => {
+const EventsList: React.FC<{ events: any[] }> = ({ events }) => {
+  const [items] = useState(events);
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState("");
+
+  let filteredItems = useMemo(() => {
+    let fiteredTasks;
+    if (sort) {
+      fiteredTasks = items.sort(
+        (a, b) => Date.parse(a.date) - Date.parse(b.date)
+      );
+      if (sort === "DOWN") {
+        fiteredTasks.reverse();
+      }
+    }
+    fiteredTasks = items.filter((item) => {
+      return item.title.toLowerCase().includes(query.toLocaleLowerCase());
+    });
+    return fiteredTasks;
+  }, [items, query, sort]);
+
   return (
     <div className={classes.events}>
-      <h1>All Events</h1>
+      <h1>All Tasks</h1>
+      <div className={classes.actions}>
+        <input className={classes.search}
+          value={query}
+          type="search"
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Type here to search..."
+        />
+        <div className={classes.sortBtn}>
+          <button
+            className={classes.sortBtn}
+            onClick={() => setSort((prev) => (prev === "UP" ? "DOWN" : "UP"))}
+          >
+            Sort by date
+            {(sort && sort === "UP" && <GoTriangleUp />) ||
+              (sort && sort === "DOWN" && <GoTriangleDown />) || (
+                <GoTriangleRight />
+              )}
+          </button>
+        </div>
+      </div>
+      <hr />
       <ul className={classes.list}>
-        {events.map((event) => (
+        {filteredItems.map((event) => (
           <li key={event.id} className={classes.item}>
             <Link to={event.id}>
-              <img src={event.image} alt={event.title} />
               <div className={classes.content}>
                 <h2>{event.title}</h2>
                 <time>{event.date}</time>
@@ -21,6 +62,6 @@ const EventsList:React.FC<{events: any[]}> =({ events }) => {
       </ul>
     </div>
   );
-}
+};
 
 export default EventsList;
